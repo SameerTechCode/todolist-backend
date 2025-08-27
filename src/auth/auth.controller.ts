@@ -9,11 +9,13 @@ export class AuthController {
 
   @Post('signup')
   signUp(@Body() dto: SignUpDto) {
+     console.log('Signup request received:', dto);
     return this.auth.signUp(dto.email, dto.password);
   }
 
   @Post('signin')
   signIn(@Body() dto: SignInDto) {
+     console.log('Signin request received:', dto);
     return this.auth.signIn(dto.email, dto.password);
   }
 }

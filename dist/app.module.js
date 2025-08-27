@@ -22,11 +22,19 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             config_1.ConfigModule.forRoot({ isGlobal: true }),
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'sqlite',
-                database: 'db.sqlite',
-                entities: [user_entity_1.User, todo_entity_1.Todo],
-                synchronize: true
+            typeorm_1.TypeOrmModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                inject: [config_1.ConfigService],
+                useFactory: (config) => ({
+                    type: 'mysql',
+                    host: config.get('DB_HOST', '127.0.0.1'),
+                    port: config.get('DB_PORT', 3306),
+                    username: config.get('DB_USER', 'root'),
+                    password: config.get('DB_PASS', ''),
+                    database: config.get('DB_NAME', 'todo_app'),
+                    entities: [user_entity_1.User, todo_entity_1.Todo],
+                    synchronize: true,
+                }),
             }),
             users_module_1.UsersModule,
             auth_module_1.AuthModule,

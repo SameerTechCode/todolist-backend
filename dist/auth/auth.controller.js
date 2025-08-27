@@ -21,9 +21,11 @@ let AuthController = class AuthController {
         this.auth = auth;
     }
     signUp(dto) {
+        console.log('Signup request received:', dto);
         return this.auth.signUp(dto.email, dto.password);
     }
     signIn(dto) {
+        console.log('Signin request received:', dto);
         return this.auth.signIn(dto.email, dto.password);
     }
 };
