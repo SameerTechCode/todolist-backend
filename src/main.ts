@@ -1,3 +1,10 @@
+import * as crypto from "crypto";   // ✅ crypto import
+
+// ✅ global crypto fix (TypeORM ke liye)
+if (!(global as any).crypto) {
+  (global as any).crypto = crypto;
+}
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
@@ -13,7 +20,7 @@ export async function createApp(adapter?: ExpressAdapter): Promise<INestApplicat
     origin: [
       'http://localhost:3000', 
       'http://127.0.0.1:3000',
-      'https://todolist-frontend-5k5t.vercel.app',   // ✅ tumhara frontend
+      'https://todolist-frontend-green.vercel.app',   // ✅ updated frontend URL
     ],
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
